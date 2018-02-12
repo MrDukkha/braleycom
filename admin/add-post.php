@@ -1,3 +1,7 @@
+<?php
+require_once('../includes/initialize.php');
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -19,6 +23,9 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="../assets/js/tinymce/tinymce.min.js">
+    </script>
+    <script>tinymce.init({ selector:'textarea' });</script>
   </head>
   <body>
     <nav class="navbar navbar-inverse">
@@ -45,28 +52,56 @@
   </div>
   </div>
 </nav>
+<?php
+if(isset($_POST['submit'])) {
+  // set default to ""
+  $postTitle = $postDesc = $postCont = "";
+  $postTitle = $_POST['postTitle'];
+  $postDesc = $_POST['postDesc'];
+  $postCont = $_POST['postCont'];
 
 
-    <div class="container">
+  $sql = "INSERT INTO blog_posts ";
+  $sql .= "(postTitle, postDesc, postCont) ";
+  $sql .= "VALUES('$postTitle', '$postDesc', '$postCont')";
 
-      <!-- Main component for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <h1>Navbar example</h1>
-        <p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
-        <p>To see the difference between static and fixed top navbars, just scroll.</p>
-        <p>
-          <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
-        </p>
-      </div>
+  $result = mysqli_query($db, $sql);
 
-    </div> <!-- /container -->
+  confirm_result_set($result);
+}
+
+ ?>
+<form class="form-horizontal" action="" method="post">
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="email">Title:</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" name="postTitle" placeholder="Enter Blog Title">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="pwd">Description:</label>
+    <div class="col-sm-4">
+      <textarea name="postDesc"></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="pwd">Content:</label>
+    <div class="col-sm-4">
+      <textarea name="postCont"></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" name="submit" class="btn btn-default">Submit</button>
+    </div>
+  </div>
+</form>
 
 
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  </body>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
 </html>
