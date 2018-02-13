@@ -55,15 +55,16 @@ require_once('../includes/initialize.php');
 <?php
 if(isset($_POST['submit'])) {
   // set default to ""
-  $postTitle = $postDesc = $postCont = "";
+  $postTitle = $postDesc = $postCont = $postDate = "";
   $postTitle = $_POST['postTitle'];
   $postDesc = $_POST['postDesc'];
   $postCont = $_POST['postCont'];
-
+  $current_date = date("Y-m-d H:i:s");
+  
 
   $sql = "INSERT INTO blog_posts ";
-  $sql .= "(postTitle, postDesc, postCont) ";
-  $sql .= "VALUES('$postTitle', '$postDesc', '$postCont')";
+  $sql .= "(postTitle, postDesc, postCont, postDate) ";
+  $sql .= "VALUES('$postTitle', '$postDesc', '$postCont', NOW())";
 
   $result = mysqli_query($db, $sql);
 

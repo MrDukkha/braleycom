@@ -1,33 +1,12 @@
 <?php
 require_once('../includes/initialize.php');
 
-$id = $_GET['id'];
-    $sql = "SELECT * FROM blog_posts ";
-    $sql .= "WHERE postID = $id";
+$sql = "SELECT * FROM blog_posts ";
+$sql .= "ORDER BY postDate ASC";
 
-    $result = mysqli_query($db, $sql);
-    $post = mysqli_fetch_assoc($result);
+$result = mysqli_query($db, $sql);
 
-if(isset($_POST['submit'])) {
-    $postTitle = $postDesc = $postCont = $postDate = "";
-    $postTitle = $_POST['postTitle'];
-    $postDesc = $_POST['postDesc'];
-    $postCont = $_POST['postCont'];
-    $sql = "UPDATE blog_posts SET ";
-    $sql .= "postTitle='$postTitle', ";
-    $sql .= "postDesc='$postDesc', ";
-    $sql .= "postCont='$postCont' ";
-    $sql .= "WHERE postID='$id'";
-
-    $result = mysqli_query($db, $sql);
-    if($result == true) {
-        header("Location: index.php");
-    }
-}
-
-    
-
-?>
+ ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,9 +29,6 @@ if(isset($_POST['submit'])) {
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="../assets/js/tinymce/tinymce.min.js">
-    </script>
-    <script>tinymce.init({ selector:'textarea' });</script>
   </head>
   <body>
     <nav class="navbar navbar-inverse">
@@ -69,40 +45,52 @@ if(isset($_POST['submit'])) {
     <div id="navbar" class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
       <li class="active"><a href="#">Home</a></li>
-      <li><a href="about.php">About</a></li>
-      <li><a href="#">Contact</a></li>
+      <li><a href="add-post.php">Add Post</a></li>
+      <li><a href="edit-post.php">Edit Post</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
     </ul>
   </div>
   </div>
 </nav>
-<div id="container">
-<form class="form-horizontal" action="" method="post">
-  <div class="form-group">
-    <label class="control-label col-sm-2">Title:</label>
-    <div class="col-sm-4">
-      <input type="text" class="form-control" name="postTitle" value="<?php echo $post['postTitle']; ?>">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-2">Description:</label>
-    <div class="col-sm-4">
-      <textarea name="postDesc"><?php echo $post['postDesc']; ?></textarea>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-2">Content:</label>
-    <div class="col-sm-4">
-      <textarea name="postCont"><?php echo $post['postCont']; ?></textarea>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" name="submit" class="btn btn-default">Submit</button>
-    </div>
-  </div>
-</form>
-</div>
+
+
+    <div class="container">
+    <h2>Striped Rows</h2>
+  <p>The .table-striped class adds zebra-stripes to a table:</p>            
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Date</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+    <?php while($post = mysqli_fetch_assoc($result)) { ?>
+      <tr>
+        <td><?php echo $post['postTitle']; ?></td>
+        <td><?php echo $post['postDate']; ?></td>
+        <td><a class="action" href="#">View</a></td>
+        <td><a class="action" href="<?php echo 'edit-post.php?id=' . $post['postID']; ?>">Edit</a></td>
+        <td><a class="action" href="#">Delete</a></td>
+      </tr>
+    <?php }?>
+    </tbody>
+  </table>
+      
+
+    </div> <!-- /container -->
+
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </body>
+</html>
