@@ -1,8 +1,9 @@
 <?php
 require_once('includes/initialize.php');
 
+$id = $_GET['id'];
 $sql = "SELECT * FROM blog_posts ";
-$sql .= "ORDER BY postDate ASC";
+$sql .= "WHERE postID = $id";
 
 $result = mysqli_query($db, $sql);
 
@@ -44,13 +45,12 @@ $result = mysqli_query($db, $sql);
     </div>
     <div id="navbar" class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="admin/index.php">About</a></li>
+      <li class="active"><a href="index.php">Home</a></li>
+      <li><a href="about.php">About</a></li>
       <li><a href="#">Contact</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
     </ul>
   </div>
   </div>
@@ -60,22 +60,20 @@ $result = mysqli_query($db, $sql);
     <div class="container">
 
       <!-- Main component for a primary marketing message or call to action -->
+      <?php while($post = mysqli_fetch_assoc($result)) { ?>
       <div class="jumbotron">
-        <h1>Welcome to Braley's Blog</h1>
-        <p>A place where the rubber meets the road and I can get my thoughts, idea's, and tech stuff out there.</p>
-        <p>I hope you enjoy and welcome comments and critcism.</p>
+        <h1 class="blog-post-title"><?php echo $post['postTitle']; ?></h1>
+        <p class="blog-post-meta"><?php echo $post['postDate']; ?> by <a href="#">Mark</a></p>
+        <p class="blog-post-meta"><?php echo $post['postDesc']; ?></p>
       </div>
       
 
       <div class="row">
 
         <div class="col-sm-8 blog-main">
-        <?php while($post = mysqli_fetch_assoc($result)) { ?>
+        
           <div class="blog-post">
-            <h2 class="blog-post-title"><?php echo $post['postTitle']; ?></h2>
-            <p class="blog-post-meta"><?php echo $post['postDate']; ?> by <a href="#">Mark</a></p>
-            <p class="blog-post-meta"><?php echo $post['postDesc']; ?></p>
-            <p><a href="<?php echo 'show.php?id=' . $post['postID']; ?>">Read More</a></p>
+          <p class="blog-post-meta"><?php echo $post['postCont']; ?></p>
           </div><!-- /.blog-post -->
         <?php } ?>
     </div> <!-- /container -->

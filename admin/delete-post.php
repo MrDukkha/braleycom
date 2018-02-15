@@ -1,10 +1,25 @@
 <?php
-require_once('includes/initialize.php');
+require_once('../includes/initialize.php');
 
-$sql = "SELECT * FROM blog_posts ";
-$sql .= "ORDER BY postDate ASC";
+$id = $_GET['id'];
+    $sql = "SELECT * FROM blog_posts ";
+    $sql .= "WHERE postID = $id";
 
-$result = mysqli_query($db, $sql);
+    $result = mysqli_query($db, $sql);
+    $post = mysqli_fetch_assoc($result);
+
+if(isset($_POST['submit'])) {
+    $sql = "DELETE FROM blog_posts ";
+    $sql .= "WHERE postID=$id ";
+    $sql .= "LIMIT 1";
+
+    $result = mysqli_query($db, $sql);
+    if($result == true) {
+        header("Location: index.php");
+    }
+}
+
+    
 
 ?>
 
@@ -29,6 +44,9 @@ $result = mysqli_query($db, $sql);
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="../assets/js/tinymce/tinymce.min.js">
+    </script>
+    <script>tinymce.init({ selector:'textarea' });</script>
   </head>
   <body>
     <nav class="navbar navbar-inverse">
@@ -45,7 +63,7 @@ $result = mysqli_query($db, $sql);
     <div id="navbar" class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
       <li class="active"><a href="#">Home</a></li>
-      <li><a href="admin/index.php">About</a></li>
+      <li><a href="about.php">About</a></li>
       <li><a href="#">Contact</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
@@ -55,37 +73,15 @@ $result = mysqli_query($db, $sql);
   </div>
   </div>
 </nav>
-
-
-    <div class="container">
-
-      <!-- Main component for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <h1>Welcome to Braley's Blog</h1>
-        <p>A place where the rubber meets the road and I can get my thoughts, idea's, and tech stuff out there.</p>
-        <p>I hope you enjoy and welcome comments and critcism.</p>
-      </div>
-      
-
-      <div class="row">
-
-        <div class="col-sm-8 blog-main">
-        <?php while($post = mysqli_fetch_assoc($result)) { ?>
-          <div class="blog-post">
-            <h2 class="blog-post-title"><?php echo $post['postTitle']; ?></h2>
-            <p class="blog-post-meta"><?php echo $post['postDate']; ?> by <a href="#">Mark</a></p>
-            <p class="blog-post-meta"><?php echo $post['postDesc']; ?></p>
-            <p><a href="<?php echo 'show.php?id=' . $post['postID']; ?>">Read More</a></p>
-          </div><!-- /.blog-post -->
-        <?php } ?>
-    </div> <!-- /container -->
-
-
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  </body>
-</html>
+<div id="container">
+<h1>Are you sure you want to delete this?</h1>
+<p><?php echo $post['postTitle']; ?></p>
+<form class="form-horizontal" action="" method="post">
+  
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" name="submit" class="btn btn-default">Delete</button>
+    </div>
+  </div>
+</form>
+</div>

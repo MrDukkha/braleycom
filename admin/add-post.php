@@ -59,7 +59,6 @@ if(isset($_POST['submit'])) {
   $postTitle = $_POST['postTitle'];
   $postDesc = $_POST['postDesc'];
   $postCont = $_POST['postCont'];
-  $current_date = date("Y-m-d H:i:s");
   
 
   $sql = "INSERT INTO blog_posts ";
@@ -68,7 +67,9 @@ if(isset($_POST['submit'])) {
 
   $result = mysqli_query($db, $sql);
 
-  confirm_result_set($result);
+  if($result == true) {
+    header("Location: index.php");
+  }
 }
 
  ?>

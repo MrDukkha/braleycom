@@ -6,7 +6,7 @@ $sql .= "ORDER BY postDate ASC";
 
 $result = mysqli_query($db, $sql);
 
- ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +29,8 @@ $result = mysqli_query($db, $sql);
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+   
+
   </head>
   <body>
     <nav class="navbar navbar-inverse">
@@ -76,7 +78,7 @@ $result = mysqli_query($db, $sql);
         <td><?php echo $post['postDate']; ?></td>
         <td><a class="action" href="#">View</a></td>
         <td><a class="action" href="<?php echo 'edit-post.php?id=' . $post['postID']; ?>">Edit</a></td>
-        <td><a class="action" href="#">Delete</a></td>
+        <td><a class="action" href="<?php echo 'delete-post.php?id=' . $post['postID']; ?>">Delete</a></td>
       </tr>
     <?php }?>
     </tbody>
