@@ -1,10 +1,7 @@
 <?php
 require_once('includes/initialize.php');
 
-$sql = "SELECT * FROM blog_posts ";
-$sql .= "ORDER BY postDate ASC";
-
-$result = mysqli_query($db, $sql);
+$result = get_all_Posts();
 
 ?>
 
@@ -15,7 +12,7 @@ $result = mysqli_query($db, $sql);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>BraleyCom</title>
 
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
@@ -66,7 +63,7 @@ $result = mysqli_query($db, $sql);
         <p>I hope you enjoy and welcome comments and critcism.</p>
       </div>
       
-
+     
       <div class="row">
 
         <div class="col-sm-8 blog-main">

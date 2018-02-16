@@ -1,10 +1,7 @@
 <?php
 require_once('../includes/initialize.php');
 
-$sql = "SELECT * FROM blog_posts ";
-$sql .= "ORDER BY postDate ASC";
-
-$result = mysqli_query($db, $sql);
+$result = get_all_posts();
 
 ?>
 
@@ -15,7 +12,7 @@ $result = mysqli_query($db, $sql);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>BraleyCom</title>
 
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
@@ -48,7 +45,6 @@ $result = mysqli_query($db, $sql);
     <ul class="nav navbar-nav">
       <li class="active"><a href="#">Home</a></li>
       <li><a href="add-post.php">Add Post</a></li>
-      <li><a href="edit-post.php">Edit Post</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
@@ -59,8 +55,8 @@ $result = mysqli_query($db, $sql);
 
 
     <div class="container">
-    <h2>Striped Rows</h2>
-  <p>The .table-striped class adds zebra-stripes to a table:</p>            
+    <h2>Posts</h2>
+  <p>Review, Edit, or Delete your posts here.</p>            
   <table class="table table-striped">
     <thead>
       <tr>
@@ -72,13 +68,13 @@ $result = mysqli_query($db, $sql);
       </tr>
     </thead>
     <tbody>
-    <?php while($post = mysqli_fetch_assoc($result)) { ?>
+    <?php while($row = mysqli_fetch_assoc($result)) { ?>
       <tr>
-        <td><?php echo $post['postTitle']; ?></td>
-        <td><?php echo $post['postDate']; ?></td>
+        <td><?php echo $row['postTitle']; ?></td>
+        <td><?php echo $row['postDate']; ?></td>
         <td><a class="action" href="#">View</a></td>
-        <td><a class="action" href="<?php echo 'edit-post.php?id=' . $post['postID']; ?>">Edit</a></td>
-        <td><a class="action" href="<?php echo 'delete-post.php?id=' . $post['postID']; ?>">Delete</a></td>
+        <td><a class="action" href="<?php echo 'edit-post.php?id=' . $row['postID']; ?>">Edit</a></td>
+        <td><a class="action" href="<?php echo 'delete-post.php?id=' . $row['postID']; ?>">Delete</a></td>
       </tr>
     <?php }?>
     </tbody>

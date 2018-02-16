@@ -1,6 +1,23 @@
 <?php
 require_once('../includes/initialize.php');
- ?>
+
+
+if(isset($_POST['submit'])) {
+  // set default to ""
+  $title = $description = $content =  "";
+
+  $title = $_POST['postTitle'];
+  $description = $_POST['postDesc'];
+  $content = $_POST['postCont'];
+  
+
+  insert_post($title, $description, $content);
+
+}
+?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +26,7 @@ require_once('../includes/initialize.php');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>BraleyCom</title>
 
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
@@ -52,27 +69,7 @@ require_once('../includes/initialize.php');
   </div>
   </div>
 </nav>
-<?php
-if(isset($_POST['submit'])) {
-  // set default to ""
-  $postTitle = $postDesc = $postCont = $postDate = "";
-  $postTitle = $_POST['postTitle'];
-  $postDesc = $_POST['postDesc'];
-  $postCont = $_POST['postCont'];
-  
 
-  $sql = "INSERT INTO blog_posts ";
-  $sql .= "(postTitle, postDesc, postCont, postDate) ";
-  $sql .= "VALUES('$postTitle', '$postDesc', '$postCont', NOW())";
-
-  $result = mysqli_query($db, $sql);
-
-  if($result == true) {
-    header("Location: index.php");
-  }
-}
-
- ?>
 <form class="form-horizontal" action="" method="post">
   <div class="form-group">
     <label class="control-label col-sm-2" for="email">Title:</label>

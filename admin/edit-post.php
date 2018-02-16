@@ -2,27 +2,16 @@
 require_once('../includes/initialize.php');
 
 $id = $_GET['id'];
-    $sql = "SELECT * FROM blog_posts ";
-    $sql .= "WHERE postID = $id";
-
-    $result = mysqli_query($db, $sql);
-    $post = mysqli_fetch_assoc($result);
+$post = get_post_by_id($id);
 
 if(isset($_POST['submit'])) {
-    $postTitle = $postDesc = $postCont = $postDate = "";
-    $postTitle = $_POST['postTitle'];
-    $postDesc = $_POST['postDesc'];
-    $postCont = $_POST['postCont'];
-    $sql = "UPDATE blog_posts SET ";
-    $sql .= "postTitle='$postTitle', ";
-    $sql .= "postDesc='$postDesc', ";
-    $sql .= "postCont='$postCont' ";
-    $sql .= "WHERE postID='$id'";
+    $title = $description = $content = "";
 
-    $result = mysqli_query($db, $sql);
-    if($result == true) {
-        header("Location: index.php");
-    }
+    $title = $_POST['postTitle'];
+    $description = $_POST['postDesc'];
+    $content = $_POST['postCont'];
+    
+    update_post($title, $description, $content, $id);
 }
 
     
@@ -36,7 +25,7 @@ if(isset($_POST['submit'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>BraleyCom</title>
 
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
@@ -80,6 +69,7 @@ if(isset($_POST['submit'])) {
   </div>
 </nav>
 <div id="container">
+
 <form class="form-horizontal" action="" method="post">
   <div class="form-group">
     <label class="control-label col-sm-2">Title:</label>
