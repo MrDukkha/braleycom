@@ -43,7 +43,7 @@ function update_post($title, $description, $content, $id) {
 
 function insert_post($title, $description, $content){
     global $db;
-    
+
     $sql = "INSERT INTO blog_posts ";
     $sql .= "(postTitle, postDesc, postCont, postDate) ";
     $sql .= "VALUES('$title', '$description', '$content', NOW())";
@@ -52,6 +52,19 @@ function insert_post($title, $description, $content){
 
     if($result == true) {
     header("Location: index.php");
+    }
+}
+
+function delete_post($id) {
+    global $db;
+    
+    $sql = "DELETE FROM blog_posts ";
+    $sql .= "WHERE postID=$id ";
+    $sql .= "LIMIT 1";
+
+    $result = mysqli_query($db, $sql);
+    if($result == true) {
+        header("Location: index.php");
     }
 }
 ?>

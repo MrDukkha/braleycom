@@ -72,7 +72,7 @@ $result = get_all_Posts();
             <h2 class="blog-post-title"><?php echo $post['postTitle']; ?></h2>
             <p class="blog-post-meta"><?php echo $post['postDate']; ?> by <a href="#">Mark</a></p>
             <p class="blog-post-meta"><?php echo $post['postDesc']; ?></p>
-            <p><a href="<?php echo 'show.php?id=' . $post['postID']; ?>">Read More</a></p>
+            <p><a href="<?php echo 'view_post.php?id=' . $post['postID']; ?>">Read More</a></p>
           </div><!-- /.blog-post -->
         <?php } ?>
     </div> <!-- /container -->

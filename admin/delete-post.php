@@ -2,21 +2,10 @@
 require_once('../includes/initialize.php');
 
 $id = $_GET['id'];
-    $sql = "SELECT * FROM blog_posts ";
-    $sql .= "WHERE postID = $id";
-
-    $result = mysqli_query($db, $sql);
-    $post = mysqli_fetch_assoc($result);
+$post = get_post_by_id($id);
 
 if(isset($_POST['submit'])) {
-    $sql = "DELETE FROM blog_posts ";
-    $sql .= "WHERE postID=$id ";
-    $sql .= "LIMIT 1";
-
-    $result = mysqli_query($db, $sql);
-    if($result == true) {
-        header("Location: index.php");
-    }
+    delete_post($id);
 }
 
     

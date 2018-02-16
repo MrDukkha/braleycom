@@ -2,10 +2,8 @@
 require_once('includes/initialize.php');
 
 $id = $_GET['id'];
-$sql = "SELECT * FROM blog_posts ";
-$sql .= "WHERE postID = $id";
 
-$result = mysqli_query($db, $sql);
+$result = get_post_by_id($id);
 
 ?>
 
@@ -58,13 +56,10 @@ $result = mysqli_query($db, $sql);
 
 
     <div class="container">
-
-      <!-- Main component for a primary marketing message or call to action -->
-      <?php while($post = mysqli_fetch_assoc($result)) { ?>
       <div class="jumbotron">
-        <h1 class="blog-post-title"><?php echo $post['postTitle']; ?></h1>
-        <p class="blog-post-meta"><?php echo $post['postDate']; ?> by <a href="#">Mark</a></p>
-        <p class="blog-post-meta"><?php echo $post['postDesc']; ?></p>
+        <h1 class="blog-post-title"><?php echo $result['postTitle']; ?></h1>
+        <p class="blog-post-meta"><?php echo $result['postDate']; ?> by <a href="#">Mark</a></p>
+        <p class="blog-post-meta"><?php echo $result['postDesc']; ?></p>
       </div>
       
 
@@ -73,9 +68,8 @@ $result = mysqli_query($db, $sql);
         <div class="col-sm-8 blog-main">
         
           <div class="blog-post">
-          <p class="blog-post-meta"><?php echo $post['postCont']; ?></p>
+          <p class="blog-post-meta"><?php echo $result['postCont']; ?></p>
           </div><!-- /.blog-post -->
-        <?php } ?>
     </div> <!-- /container -->
 
 
