@@ -1,0 +1,13 @@
+.container {
+    margin-top: 15%;
+    border-style: solid;
+    border-color: gray;
+    border-width: 2px;
+    width: 30%;
+    
+}
+
+.twid {
+    float: left;
+}
+

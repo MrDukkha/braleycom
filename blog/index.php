@@ -1,20 +1,12 @@
 <?php
 require_once('../includes/initialize.php');
 
-$id = $_GET['id'];
-$post = get_post_by_id($id);
 
-if(isset($_POST['submit'])) {
-    $title = $description = $content = "";
-
-    $title = $_POST['postTitle'];
-    $description = $_POST['postDesc'];
-    $content = $_POST['postCont'];
-    
-    update_post($title, $description, $content, $id);
+if(!logged_in()) {
+  header("Location: ../login.php");
 }
 
-    
+$result = get_all_posts();
 
 ?>
 
@@ -39,9 +31,8 @@ if(isset($_POST['submit'])) {
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="../assets/js/tinymce/tinymce.min.js">
-    </script>
-    <script>tinymce.init({ selector:'textarea' });</script>
+   
+
   </head>
   <body>
     <nav class="navbar navbar-inverse">
@@ -58,41 +49,51 @@ if(isset($_POST['submit'])) {
     <div id="navbar" class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
       <li class="active"><a href="#">Home</a></li>
-      <li><a href="about.php">About</a></li>
-      <li><a href="#">Contact</a></li>
+      <li><a href="add-post.php">Add Post</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <li><a href="../logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
     </ul>
   </div>
   </div>
 </nav>
-<div id="container">
 
-<form class="form-horizontal" action="" method="post">
-  <div class="form-group">
-    <label class="control-label col-sm-2">Title:</label>
-    <div class="col-sm-4">
-      <input type="text" class="form-control" name="postTitle" value="<?php echo $post['postTitle']; ?>">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-2">Description:</label>
-    <div class="col-sm-4">
-      <textarea name="postDesc"><?php echo $post['postDesc']; ?></textarea>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-2">Content:</label>
-    <div class="col-sm-4">
-      <textarea name="postCont"><?php echo $post['postCont']; ?></textarea>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" name="submit" class="btn btn-default">Submit</button>
-    </div>
-  </div>
-</form>
-</div>
+
+    <div class="container">
+    <h2>Posts</h2>
+  <p>Review, Edit, or Delete your posts here.</p>            
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Date</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+    <?php while($row = mysqli_fetch_assoc($result)) { ?>
+      <tr>
+        <td><?php echo $row['postTitle']; ?></td>
+        <td><?php echo $row['postDate']; ?></td>
+        <td><a class="" href="#">View</a></td>
+        <td><a class="" href="<?php echo 'edit-post.php?id=' . $row['postID']; ?>">Edit</a></td>
+        <td><a class="" href="<?php echo 'delete-post.php?id=' . $row['postID']; ?>">Delete</a></td>
+      </tr>
+    <?php }?>
+    </tbody>
+  </table>
+      
+
+    </div> <!-- /container -->
+
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </body>
+</html>

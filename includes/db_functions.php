@@ -67,4 +67,32 @@ function delete_post($id) {
         header("Location: index.php");
     }
 }
+/* Admin Functions */
+
+function get_admins() {
+    global $db;
+
+    $sql = "SELECT * FROM admin ";
+    $sql .= "ORDER BY lastName ASC, firstName ASC";
+
+    $result = mysqli_query($db, $sql);
+
+    return $result;
+}
+
+function find_by_username($username) {
+    global $db;
+
+    $sql = "SELECT * FROM admin ";
+    $sql .= "WHERE username='$username'";
+    
+
+    $result = mysqli_query($db, $sql);
+    confirm_result_set($result);
+    $user = mysqli_fetch_assoc($result);
+    mysqli_free_result($user);
+    return $user;
+}
+
+
 ?>
