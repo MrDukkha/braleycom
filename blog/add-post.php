@@ -4,14 +4,14 @@ require_once('../includes/initialize.php');
 
 if(isset($_POST['submit'])) {
   // set default to ""
-  $title = $description = $content =  "";
+  $title = $description = $content = $author = "";
 
   $title = $_POST['postTitle'];
   $description = $_POST['postDesc'];
   $content = $_POST['postCont'];
-  
+  $author = $_SESSION['username'] ?? 'unknown';
 
-  insert_post($title, $description, $content);
+  insert_post($title, $author, $description, $content);
 
 }
 ?>

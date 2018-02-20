@@ -1,8 +1,12 @@
 <?php
 require_once('../includes/initialize.php');
 
+if(!isset($_GET['id'])){
+  header("Location: index.php");
+}
+
 $id = $_GET['id'];
-$post = get_post_by_id($id);
+
 
 if(isset($_POST['submit'])) {
     $title = $description = $content = "";
@@ -12,6 +16,8 @@ if(isset($_POST['submit'])) {
     $content = $_POST['postCont'];
     
     update_post($title, $description, $content, $id);
+} else {
+  $post = get_post_by_id($id);
 }
 
     
@@ -60,10 +66,6 @@ if(isset($_POST['submit'])) {
       <li class="active"><a href="#">Home</a></li>
       <li><a href="about.php">About</a></li>
       <li><a href="#">Contact</a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     </ul>
   </div>
   </div>

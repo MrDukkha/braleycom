@@ -77,7 +77,7 @@ $result = get_all_posts();
       <tr>
         <td><?php echo $row['postTitle']; ?></td>
         <td><?php echo $row['postDate']; ?></td>
-        <td><a class="" href="#">View</a></td>
+        <td><a class="" href="<?php echo '../view_post.php?id=' . $row['postID']; ?>">View</a></td>
         <td><a class="" href="<?php echo 'edit-post.php?id=' . $row['postID']; ?>">Edit</a></td>
         <td><a class="" href="<?php echo 'delete-post.php?id=' . $row['postID']; ?>">Delete</a></td>
       </tr>

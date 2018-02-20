@@ -4,6 +4,6 @@ require_once('includes/initialize.php');
 
 user_logout();
 
-header("Location: login.php");
+header("Location: index.php");
 
 ?>

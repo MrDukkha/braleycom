@@ -41,12 +41,12 @@ function update_post($title, $description, $content, $id) {
     }
 }
 
-function insert_post($title, $description, $content){
+function insert_post($title, $author, $description, $content){
     global $db;
 
     $sql = "INSERT INTO blog_posts ";
-    $sql .= "(postTitle, postDesc, postCont, postDate) ";
-    $sql .= "VALUES('$title', '$description', '$content', NOW())";
+    $sql .= "(postTitle, author, postDesc, postCont, postDate) ";
+    $sql .= "VALUES('$title', '$author', '$description', '$content', NOW())";
 
     $result = mysqli_query($db, $sql);
 
