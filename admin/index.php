@@ -79,10 +79,10 @@ $admins = get_admins();
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Admin</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Email</th>
-                        <th>&nbsp;</th>
                         <th>&nbsp;</th>
                         <th>&nbsp;</th>
                         <th>&nbsp;</th>
@@ -95,6 +95,9 @@ $admins = get_admins();
                             <?php echo $row['id']; ?>
                         </td>
                         <td>
+                            <?php echo $row['is_admin'] == 1 ? 'true' : 'false'; ?>
+                        </td>
+                        <td>
                             <?php echo $row['firstName']; ?>
                         </td>
                         <td>
@@ -105,9 +108,6 @@ $admins = get_admins();
                         </td>
                         <td>
                             <?php echo $row['username']; ?>
-                        </td>
-                        <td>
-                            <a class="" href="#">View</a>
                         </td>
                         <td>
                             <a class="" href="<?php echo 'edit-admin.php?id=' . $row['id']; ?>">Edit</a>

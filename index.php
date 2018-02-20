@@ -22,6 +22,7 @@ if(logged_in()) {
         <p>I hope you enjoy and welcome comments and critcism.</p>
       </div>
 
+      
 
       <div class="row">
 

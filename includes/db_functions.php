@@ -94,5 +94,19 @@ function find_by_username($username) {
     return $user;
 }
 
+function insert_user($fName, $lName, $email, $username, $pass) {
+    global $db;
+
+    $sql = "INSERT INTO admin ";
+    $sql .= "(firstName, lastName, email, username, hashed_pass) ";
+    $sql .= "VALUES ('$fName', '$lName', '$email', '$username', '$pass')";
+
+    $result = mysqli_query($db, $sql);
+
+    if($result == true) {
+    header("Location: index.php");
+    }
+}
+
 
 ?>
