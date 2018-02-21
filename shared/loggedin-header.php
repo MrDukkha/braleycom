@@ -1,3 +1,9 @@
+<?php
+
+
+
+?>
+
 <!DOCTYPE html>
   <html lang="en">
 
@@ -22,6 +28,9 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="../assets/js/tinymce/tinymce.min.js">
+    </script>
+    <script>tinymce.init({ selector:'textarea' });</script>
   </head>
 
   <body>
@@ -43,15 +52,22 @@
               <a href="#">Home</a>
             </li>
             <li>
-              <a href="blog/index.php">Blog</a>
+              <a href="blog/add-post.php">Add Blog Post</a>
             </li>
             <li>
               <a href="#">Contact</a>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+          <?php
+          if(is_admin($_SESSION['user_id'])) { ?>
+          <li>
+              <a href="admin/index.php">
+                <span class="glyphicon glyphicon-user"></span> Admin</a>
+            </li>
+         <?php }?>
             <li>
-              <a href="../logout.php">
+              <a href="braleycom/logout.php">
                 <span class="glyphicon glyphicon-log-out"></span> Logout</a>
             </li>
           </ul>

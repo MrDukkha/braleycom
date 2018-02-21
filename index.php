@@ -1,7 +1,7 @@
 <?php
 require_once('includes/initialize.php');
-
-$result = get_all_Posts();
+$author = $_SESSION['username'];
+$result = get_post_by_author($author);
 if(logged_in()) {
   include('shared/loggedin-header.php');
 } else {

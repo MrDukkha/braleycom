@@ -12,11 +12,11 @@ if(isset($_POST['submit'])) {
 
     $user = find_by_username($username);
 
-    echo $user['firstName'];
+    
     if($user) {
         if(password_verify($password, $user['hashed_pass'])) {
             user_login($user);
-            header("Location: blog/index.php");
+            header("Location: index.php");
         }
     }
 }
