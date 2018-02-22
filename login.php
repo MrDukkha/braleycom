@@ -1,24 +1,37 @@
 <?php 
 
 require_once('includes/initialize.php');
-
+$errors = [];
 $username = '';
 $password = '';
 
 if(isset($_POST['submit'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = $_POST['username'] ? true : '';
+    $password = $_POST['password'] ? true : '';
 
+    if(!isset($username) || trim($username)) {
+        errors[] = "Please ener a username"; 
+    }
+    if(!isset($password) || trim($password)) {
+        errors[] = "Please ener a password"; 
+    }
 
-    $user = find_by_username($username);
+    if(empty($errors)) {
+        $error = "Could not login please contact and administrator.";
 
-    
-    if($user) {
-        if(password_verify($password, $user['hashed_pass'])) {
-            user_login($user);
-            header("Location: index.php");
+        $user = find_by_username($username);
+
+        if($user) {
+            if(password_verify($password, $user['hashed_pass'])) {
+                user_login($user);
+                header("Location: index.php");
+            }
+        } else {
+            // Display errors
+            
         }
     }
+    
 }
 
 ?>
