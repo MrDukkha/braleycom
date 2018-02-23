@@ -12,6 +12,7 @@ function user_login($user) {
 function user_logout() {
     unset($_SESSION['user_id']);
     unset($_SESSION['username']);
+    
     return true;
 }
 

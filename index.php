@@ -1,11 +1,14 @@
 <?php
 require_once('includes/initialize.php');
-$author = $_SESSION['username'];
-$result = get_post_by_author($author);
+
+
 if(logged_in()) {
   include('shared/loggedin-header.php');
+  $author = $_SESSION['username'];
+  $result = get_post_by_author($author);
 } else {
   include('shared/default-header.php');
+  $result = get_all_posts();
 }
 
 ?>
@@ -42,6 +45,11 @@ if(logged_in()) {
             <p>
               <a href="<?php echo 'view_post.php?id=' . $post['postID']; ?>">Read More</a>
             </p>
+            <?php if(logged_in()) { ?>
+                  <p>
+                    <a href="<?php echo 'blog/edit-post.php?id=' . $post['postID']; ?>">Edit Post</a>
+                  </p>
+            <?php } ?>
           </div>
           <!-- /.blog-post -->
           <?php } ?>

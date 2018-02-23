@@ -16,7 +16,7 @@ include('../shared/admin-header.php');
             <br>
             <br>
             <p>
-                <a href="new-admin.php">Create Admin</a>
+                <a href="new-admin.php">Add User</a>
             </p>
             <table class="table table-striped">
                 <thead>

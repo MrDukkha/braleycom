@@ -24,7 +24,7 @@ include('../shared/admin-header.php');
 
 
 
-
+<a href="index.php">&laquo; Back to Admin panel</a>
 <form class="form-horizontal" action="" method="post">
   <div class="form-group">
     <label class="control-label col-sm-2" for="firstName">First Name:</label>

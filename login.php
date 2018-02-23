@@ -1,23 +1,24 @@
 <?php 
 
 require_once('includes/initialize.php');
-$errors = [];
+
 $username = '';
 $password = '';
 
 if(isset($_POST['submit'])) {
-    $username = $_POST['username'] ? true : '';
-    $password = $_POST['password'] ? true : '';
+    $username = $_POST['username'] ? : '';
+    $password = $_POST['password'] ? : '';
 
-    if(!isset($username) || trim($username)) {
-        errors[] = "Please ener a username"; 
+    if(!isset($username) || trim($username) === '') {
+        $errors[] = "Please ener a username"; 
     }
-    if(!isset($password) || trim($password)) {
-        errors[] = "Please ener a password"; 
+    if(!isset($password) || trim($password) === '') {
+        $errors[] = "Please ener a password"; 
     }
 
     if(empty($errors)) {
-        $error = "Could not login please contact and administrator.";
+        $password_error = "Could not login in, invalid password.";
+        $username_error = "Could not login, no user by that name.";
 
         $user = find_by_username($username);
 
@@ -25,10 +26,13 @@ if(isset($_POST['submit'])) {
             if(password_verify($password, $user['hashed_pass'])) {
                 user_login($user);
                 header("Location: index.php");
+            } else {
+                // pass match error
+                $errors[] = $password_error;
             }
         } else {
-            // Display errors
-            
+            // no username error
+            $errors[] = $username_error;
         }
     }
     
@@ -64,6 +68,7 @@ if(isset($_POST['submit'])) {
       
     <div class="container">
     <h1>Login Form</h1><hr>
+    <?php echo get_errors($errors); ?>
         <form action="" method="post">
             <div class="form-group">
                 <label for="email">Username</label>

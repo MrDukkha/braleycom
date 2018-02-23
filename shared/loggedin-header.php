@@ -67,7 +67,7 @@
             </li>
          <?php }?>
             <li>
-              <a href="braleycom/logout.php">
+              <a href="logout.php">
                 <span class="glyphicon glyphicon-log-out"></span> Logout</a>
             </li>
           </ul>
