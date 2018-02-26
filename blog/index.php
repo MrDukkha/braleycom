@@ -2,53 +2,69 @@
 require_once('../includes/initialize.php');
 
 
-if(!logged_in()) {
-  header("Location: ../login.php");
+if(logged_in()) {
+  include('../shared/blog-header.php');
+  $author = $_SESSION['username'];
+  $result = get_post_by_author($author);
+} else {
+  include('../shared/blog-header.php');
+  $result = get_all_posts();
 }
 
-$result = get_post_by_author($_SESSION['username']);
-
-include('../shared/blog-header.php');
 ?>
 
 
 
 
     <div class="container">
-    <h2>Posts</h2>
-  <p>Review, Edit, or Delete your posts here.</p>            
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Date</th>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-    <?php while($row = mysqli_fetch_assoc($result)) { ?>
-      <tr>
-        <td><?php echo $row['postTitle']; ?></td>
-        <td><?php echo $row['postDate']; ?></td>
-        <td><a class="" href="<?php echo '../view_post.php?id=' . $row['postID']; ?>">View</a></td>
-        <td><a class="" href="<?php echo 'edit-post.php?id=' . $row['postID']; ?>">Edit</a></td>
-        <td><a class="" href="<?php echo 'delete-post.php?id=' . $row['postID']; ?>">Delete</a></td>
-      </tr>
-    <?php }?>
-    </tbody>
-  </table>
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Welcome to Braley's Blog</h1>
+        <p>A place where the rubber meets the road and I can get my thoughts, idea's, and tech stuff out there.</p>
+        <p>I hope you enjoy and welcome comments and critcism.</p>
+      </div>
+
       
 
-    </div> <!-- /container -->
+      <div class="row">
+
+        <div class="col-sm-8 blog-main">
+          <?php while($post = mysqli_fetch_assoc($result)) { ?>
+          <div class="blog-post">
+            <h2 class="blog-post-title">
+              <?php echo $post['postTitle']; ?>
+            </h2>
+            <p class="blog-post-meta">
+              <?php echo $post['postDate']; ?> by
+              <a href="#"><?php echo $post['author']; ?></a>
+            </p>
+            <p class="blog-post-meta">
+              <?php echo $post['postDesc']; ?>
+            </p>
+            <p>
+              <a href="<?php echo 'view_post.php?id=' . $post['postID']; ?>">Read More</a>
+            </p>
+            <?php if(logged_in()) { ?>
+                  <p>
+                    <a href="<?php echo 'blog/edit-post.php?id=' . $post['postID']; ?>">Edit Post</a>
+                  </p>
+            <?php } ?>
+          </div>
+          <!-- /.blog-post -->
+          <?php } ?>
+          <?php mysqli_free_result($result); ?>
+        </div>
+        <!-- /container -->
 
 
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+          crossorigin="anonymous"></script>
   </body>
-</html>
+
+  </html>

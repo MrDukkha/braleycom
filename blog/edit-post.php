@@ -1,8 +1,12 @@
 <?php
 require_once('../includes/initialize.php');
 
+if(!logged_in()) {
+  header("Location: ../login.php");
+}
+
 if(!isset($_GET['id'])){
-  header("Location: index.php");
+  header("Location: blog-admin.php");
 }
 
 $id = $_GET['id'];
@@ -70,8 +74,8 @@ if(isset($_POST['submit'])) {
   </div>
   </div>
 </nav>
-<div id="container">
-<a href="index.php">&laquo; Back to Post List</a>
+<div class="container">
+<a href="blog-admin.php">&laquo; Back to Post List</a>
 <form class="form-horizontal" action="" method="post">
   <div class="form-group">
     <label class="control-label col-sm-2">Title:</label>

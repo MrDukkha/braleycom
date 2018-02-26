@@ -15,13 +15,15 @@ if(isset($_POST['submit'])) {
 
 }
 
+$title = "Add Post";
+
 include('../shared/blog-header.php');
 ?>
 
 
 
 
-
+<div class="container">
 
 <form class="form-horizontal" action="" method="post">
   <div class="form-group">
@@ -48,7 +50,7 @@ include('../shared/blog-header.php');
     </div>
   </div>
 </form>
-
+</div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
